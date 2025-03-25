@@ -1,6 +1,6 @@
 {
-  "name": "jaddek/fireblocks-sdk-php",
-  "description": "Fireblocks http api client",
+  "name": "decrypted/fireblocks-sdk-php",
+  "description": "Fork - Fireblocks http api client - from jaddek",
   "keywords": [
     "fireblocks",
     "sdk",
