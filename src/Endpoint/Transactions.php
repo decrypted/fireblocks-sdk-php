@@ -35,7 +35,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function retrieveTransaction(string $txId): ResponseInterface
     {
         $url = strtr('/v1/transactions/{txId}', [
-            '{txId}' => $txId,
+            '{txId}' => urlencode($txId),
         ]);
 
         return $this->request('GET', $url);
@@ -44,7 +44,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function retrieveTransactionByExternalId(string $externalTxId): ResponseInterface
     {
         $url = strtr('/v1/transactions/external_tx_id/{externalTxId}', [
-            'externalTxId' => $externalTxId,
+            'externalTxId' => urlencode($externalTxId),
         ]);
 
         return $this->request('GET', $url);
@@ -53,7 +53,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function cancelTransaction(string $txId): ResponseInterface
     {
         $url = strtr('/v1/transactions/{txId}/cancel', [
-            '{txId}' => $txId,
+            '{txId}' => urlencode($txId),
         ]);
 
         return $this->request('POST', $url);
@@ -62,7 +62,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function dropTransaction(string $txId, ?string $feeLevel = null): ResponseInterface
     {
         $url = strtr('/v1/transactions/{txId}/drop', [
-            '{txId}' => $txId,
+            '{txId}' => urlencode($txId),
         ]);
 
         $options = [];
@@ -79,7 +79,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function freezeTransaction(string $txId): ResponseInterface
     {
         $url = strtr('/v1/transactions/{txId}/freeze', [
-            '{txId}' => $txId,
+            '{txId}' => urlencode($txId),
         ]);
 
         return $this->request('POST', $url);
@@ -88,7 +88,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function unFreezeTransaction(string $txId): ResponseInterface
     {
         $url = strtr('/v1/transactions/{txId}/unfreeze', [
-            '{txId}' => $txId,
+            '{txId}' => urlencode($txId),
         ]);
 
         return $this->request('POST', $url);
@@ -97,8 +97,8 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function validateDestinationAddress(string $assetId, string $address): ResponseInterface
     {
         $url = strtr('/v1/transactions/validate_address/{assetId}/{address}', [
-            '{assetId}' => $assetId,
-            '{address}' => $address
+            '{assetId}' => urlencode($assetId),
+            '{address}' => urlencode($address)
         ]);
 
         return $this->request('GET', $url);
@@ -123,7 +123,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function setConfirmationThresholdByTxId(string $txId): ResponseInterface
     {
         $url = strtr('/v1/transactions/{txId}/set_confirmation_threshold', [
-            '{txId}' => $txId,
+            '{txId}' => urlencode($txId),
         ]);
 
         return $this->request('POST', $url);
@@ -132,7 +132,7 @@ final class Transactions extends Endpoint implements TransactionsInterface
     public function setConfirmationThresholdByTxHash(string $txHash): ResponseInterface
     {
         $url = strtr('/v1/txHash/{txHash}/set_confirmation_threshold', [
-            '{txHash}' => $txHash,
+            '{txHash}' => urlencode($txHash),
         ]);
 
         return $this->request('POST', $url);

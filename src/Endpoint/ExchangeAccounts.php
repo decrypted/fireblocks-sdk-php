@@ -17,7 +17,7 @@ final class ExchangeAccounts extends Endpoint implements ExchangeAccountsInterfa
     public function retrieveAccount(string $exchangeAccountId): ResponseInterface
     {
         $url = strtr('/v1/exchange_accounts/{exchangeAccountId}', [
-            '{exchangeAccountId}' => $exchangeAccountId,
+            '{exchangeAccountId}' => urlencode($exchangeAccountId),
         ]);
 
         return $this->request('GET', $url);
@@ -26,8 +26,8 @@ final class ExchangeAccounts extends Endpoint implements ExchangeAccountsInterfa
     public function retrieveAsset(string $exchangeAccountId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/exchange_accounts/{exchangeAccountId}/{assetId}', [
-            '{exchangeAccountId}' => $exchangeAccountId,
-            '{assetId}'           => $assetId,
+            '{exchangeAccountId}' => urlencode($exchangeAccountId),
+            '{assetId}'           => urlencode($assetId),
         ]);
 
         return $this->request('GET', $url);
@@ -36,7 +36,7 @@ final class ExchangeAccounts extends Endpoint implements ExchangeAccountsInterfa
     public function exchangeInternalTransfer(string $exchangeAccountId, ExchangeInternalTransfer $transfer): ResponseInterface
     {
         $url = strtr('/v1/exchange_accounts/{exchangeAccountId}/internal_transfer', [
-            '{exchangeAccountId}' => $exchangeAccountId,
+            '{exchangeAccountId}' => urlencode($exchangeAccountId),
         ]);
 
         return $this->request('POST', $url, [
