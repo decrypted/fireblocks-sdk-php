@@ -53,7 +53,7 @@ final class Vault extends Endpoint implements VaultInterface
     public function getAccount(string $vaultAccountId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}', [
-            '{vaultAccountId}' => $vaultAccountId
+            '{vaultAccountId}' => urlencode($vaultAccountId)
         ]);
 
         return $this->request('GET', $url);
@@ -69,7 +69,7 @@ final class Vault extends Endpoint implements VaultInterface
     public function renameAccount(string $vaultAccountId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}', [
-            '{vaultAccountId}' => $vaultAccountId
+            '{vaultAccountId}' => urlencode($vaultAccountId)
         ]);
 
         return $this->request('PUT', $url);
@@ -78,8 +78,8 @@ final class Vault extends Endpoint implements VaultInterface
     public function getBalanceOfAccountAsset(string $vaultAccountId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId)
         ]);
 
         return $this->request('GET', $url);
@@ -88,8 +88,8 @@ final class Vault extends Endpoint implements VaultInterface
     public function createNewWallet(string $vaultAccountId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId)
         ]);
 
         return $this->request('POST', $url);
@@ -98,7 +98,7 @@ final class Vault extends Endpoint implements VaultInterface
     public function hideAccountInWebConsole(string $vaultAccountId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/hide', [
-            '{vaultAccountId}' => $vaultAccountId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
         ]);
 
         return $this->request('POST', $url);
@@ -107,7 +107,7 @@ final class Vault extends Endpoint implements VaultInterface
     public function showAccountInWebConsole(string $vaultAccountId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/unhide', [
-            '{vaultAccountId}' => $vaultAccountId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
         ]);
 
         return $this->request('POST', $url);
@@ -116,8 +116,8 @@ final class Vault extends Endpoint implements VaultInterface
     public function getAccountAddresses(string $vaultAccountId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/addresses', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId),
         ]);
 
         return $this->request('GET', $url);
@@ -126,8 +126,8 @@ final class Vault extends Endpoint implements VaultInterface
     public function createDepositAddress(string $vaultAccountId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/addresses', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId),
         ]);
 
         return $this->request('POST', $url);
@@ -136,9 +136,9 @@ final class Vault extends Endpoint implements VaultInterface
     public function renameAddress(string $vaultAccountId, string $assetId, string $addressId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId,
-            '{addressId}'      => $addressId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId),
+            '{addressId}'      => urlencode($addressId),
         ]);
 
         return $this->request('PUT', $url);
@@ -147,8 +147,8 @@ final class Vault extends Endpoint implements VaultInterface
     public function getMaximumSpendableAmount(string $vaultAccountId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId),
         ]);
 
         return $this->request('GET', $url);
@@ -157,7 +157,7 @@ final class Vault extends Endpoint implements VaultInterface
     public function setAmlCustomerRefIDForAccount(string $vaultAccountId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/set_customer_ref_id', [
-            '{vaultAccountId}' => $vaultAccountId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
         ]);
 
         return $this->request('POST', $url);
@@ -166,8 +166,8 @@ final class Vault extends Endpoint implements VaultInterface
     public function setAmlCustomerRefIDForAddress(string $vaultAccountId, string $addressId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{addressId}'      => $addressId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{addressId}'      => urlencode($addressId),
         ]);
 
         return $this->request('POST', $url);
@@ -176,8 +176,8 @@ final class Vault extends Endpoint implements VaultInterface
     public function getUnspentInputs(string $vaultAccountId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId),
         ]);
 
         return $this->request('GET', $url);
@@ -193,10 +193,10 @@ final class Vault extends Endpoint implements VaultInterface
     public function getPublicKeyOfFireBlockAddress(string $vaultAccountId, string $assetId, string $change, string $addressIndex): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info', [
-            '{vaultAccountId}' => $vaultAccountId,
-            '{assetId}'        => $assetId,
-            '{change}'         => $change,
-            '{addressIndex}'   => $addressIndex,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}'        => urlencode($assetId),
+            '{change}'         => urlencode($change),
+            '{addressIndex}'   => urlencode($addressIndex),
         ]);
 
         return $this->request('GET', $url);
@@ -205,7 +205,7 @@ final class Vault extends Endpoint implements VaultInterface
     public function setAutoFuelProperties(string $vaultAccountId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/set_auto_fuel', [
-            '{vaultAccountId}' => $vaultAccountId,
+            '{vaultAccountId}' => urlencode($vaultAccountId),
         ]);
 
         return $this->request('POST', $url);
@@ -221,7 +221,7 @@ final class Vault extends Endpoint implements VaultInterface
     public function getAssetValueBalance(string $assetId): ResponseInterface
     {
         $url = strtr('/v1/vault/assets/{assetId}', [
-            '{assetId}' => $assetId,
+            '{assetId}' => urlencode($assetId),
         ]);
 
         return $this->request('GET', $url);
