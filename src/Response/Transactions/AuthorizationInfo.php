@@ -9,9 +9,9 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class AuthorizationInfo implements ItemInterface
 {
     public function __construct(
-        private bool   $allowOperatorAsAuthorizer,
-        private string $logic,
-        private array  $groups,
+        public bool   $allowOperatorAsAuthorizer,
+        public string $logic,
+        public array  $groups,
     )
     {
     }

@@ -9,9 +9,9 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Configuration implements ItemInterface
 {
     public function __construct(
-        private ?string $gasThreshold,
-        private ?string $gasCap,
-        private ?string $maxGasPrice,
+        public ?string $gasThreshold,
+        public ?string $gasCap,
+        public ?string $maxGasPrice,
     )
     {
     }

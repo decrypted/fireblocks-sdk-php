@@ -6,5 +6,4 @@ namespace Jaddek\Fireblocks\Http\Response;
 
 interface ItemInterface
 {
-
 }

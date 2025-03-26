@@ -9,16 +9,16 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class NetworkRecords implements ItemInterface
 {
     public function __construct(
-        private Source      $source,
-        private Destination $destination,
-        private string      $thHash,
-        private string      $networkFee,
-        private string      $assetId,
-        private string      $netAmount,
-        private string      $status,
-        private string      $type,
-        private string      $destinationAddress,
-        private string      $sourceAddress,
+        public Source      $source,
+        public Destination $destination,
+        public string      $thHash,
+        public string      $networkFee,
+        public string      $assetId,
+        public string      $netAmount,
+        public string      $status,
+        public string      $type,
+        public string      $destinationAddress,
+        public string      $sourceAddress,
     )
     {
 

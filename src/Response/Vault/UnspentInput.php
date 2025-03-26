@@ -9,11 +9,11 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class UnspentInput implements ItemInterface
 {
     public function __construct(
-        private Input  $input,
-        private string $address,
-        private string $amount,
-        private ?string $confirmation,
-        private string $status,
+        public Input   $input,
+        public string  $address,
+        public string  $amount,
+        public ?string $confirmation,
+        public string  $status,
     )
     {
 

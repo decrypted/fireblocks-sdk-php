@@ -9,12 +9,12 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class User implements ItemInterface
 {
     public function __construct(
-        private string $id,
-        private string $firstName,
-        private string $lastName,
-        private string $role,
-        private string $email,
-        private bool   $enabled,
+        public string $id,
+        public string $firstName,
+        public string $lastName,
+        public string $role,
+        public string $email,
+        public bool   $enabled,
     )
     {
     }
@@ -60,9 +60,9 @@ final class User implements ItemInterface
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getEnabled(): int
+    public function getEnabled(): bool
     {
         return $this->enabled;
     }

@@ -9,8 +9,8 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class AmlScreeningResult implements ItemInterface
 {
     public function __construct(
-        private string $provider,
-        private array  $payload,
+        public string $provider,
+        public array  $payload,
     )
     {
     }

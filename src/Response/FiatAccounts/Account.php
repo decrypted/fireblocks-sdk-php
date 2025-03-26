@@ -9,11 +9,11 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Account implements ItemInterface
 {
     public function __construct(
-        private string          $id,
-        private string          $type,
-        private string          $name,
-        private string          $address,
-        private AssetCollection $assets,
+        public string          $id,
+        public string          $type,
+        public string          $name,
+        public string          $address,
+        public AssetCollection $assets,
     )
     {
     }

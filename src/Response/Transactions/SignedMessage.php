@@ -9,11 +9,11 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class SignedMessage implements ItemInterface
 {
     public function __construct(
-        private string    $content,
-        private string    $algorithm,
-        private array     $derivationPath,
-        private Signature $signature,
-        private string    $publicKey,
+        public string    $content,
+        public string    $algorithm,
+        public array     $derivationPath,
+        public Signature $signature,
+        public string    $publicKey,
     )
     {
     }

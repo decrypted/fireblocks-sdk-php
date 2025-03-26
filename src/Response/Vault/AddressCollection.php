@@ -10,15 +10,6 @@ use JetBrains\PhpStorm\Pure;
 
 final class AddressCollection extends Collection
 {
-    /**
-     * @return array<Address>
-     */
-    #[Pure]
-    public function getAddresses(): array
-    {
-        return $this->getCollection();
-    }
-
     public static function getSupportedItem(): string
     {
         return Address::class;
@@ -27,6 +18,15 @@ final class AddressCollection extends Collection
     public static function getItemsKey(): string
     {
         return 'addresses';
+    }
+
+    /**
+     * @return array<Address>
+     */
+    #[Pure]
+    public function getAddresses(): array
+    {
+        return $this->getCollection();
     }
 
 

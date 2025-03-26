@@ -10,14 +10,14 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class ExchangeAccount implements ItemInterface
 {
     public function __construct(
-        private string                    $id,
-        private string                    $name,
-        private string                    $type,
-        private AssetCollection           $assets,
-        private bool                      $isSubaccount,
-        private string                    $status,
-        private TradingAccountsCollection $tradingAccounts,
-        private ?string                   $fundableAccountType,
+        public string                    $id,
+        public string                    $name,
+        public string                    $type,
+        public AssetCollection           $assets,
+        public bool                      $isSubaccount,
+        public string                    $status,
+        public TradingAccountsCollection $tradingAccounts,
+        public ?string                   $fundableAccountType,
     )
     {
 
@@ -72,9 +72,9 @@ final class ExchangeAccount implements ItemInterface
     }
 
     /**
-     * @return array
+     * @return TradingAccountsCollection
      */
-    public function getTradingAccounts(): array
+    public function getTradingAccounts(): TradingAccountsCollection
     {
         return $this->tradingAccounts;
     }

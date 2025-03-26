@@ -9,9 +9,9 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Signature implements ItemInterface
 {
     public function __construct(
-        private string $r,
-        private string $s,
-        private int $v,
+        public string $r,
+        public string $s,
+        public int    $v,
     )
     {
     }

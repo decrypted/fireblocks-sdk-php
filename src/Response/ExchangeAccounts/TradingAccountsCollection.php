@@ -9,15 +9,6 @@ use JetBrains\PhpStorm\Pure;
 
 final class TradingAccountsCollection extends Collection
 {
-    /**
-     * @return array<TradingAccount>
-     */
-    #[Pure]
-    public function getExchangeAccounts(): array
-    {
-        return $this->getCollection();
-    }
-
     public static function getSupportedItem(): string
     {
         return TradingAccount::class;
@@ -26,6 +17,15 @@ final class TradingAccountsCollection extends Collection
     public static function getItemsKey(): string
     {
         return 'tradingAccounts';
+    }
+
+    /**
+     * @return array<TradingAccount>
+     */
+    #[Pure]
+    public function getExchangeAccounts(): array
+    {
+        return $this->getCollection();
     }
 
 

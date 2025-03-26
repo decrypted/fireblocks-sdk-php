@@ -8,7 +8,7 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 
 final class MaximumSpendableAmount implements ItemInterface
 {
-    public function __construct(private string $maxSpendableAmount)
+    public function __construct(public string $maxSpendableAmount)
     {
 
     }

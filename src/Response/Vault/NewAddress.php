@@ -9,9 +9,9 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class NewAddress implements ItemInterface
 {
     public function __construct(
-        private string $address,
-        private string $legacyAddress,
-        private ?string $tab,
+        public string  $address,
+        public string  $legacyAddress,
+        public ?string $tab,
     )
     {
     }

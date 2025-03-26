@@ -9,14 +9,14 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Address implements ItemInterface
 {
     public function __construct(
-        private string $assetId,
-        private string $address,
-        private string $tag,
-        private string $description,
-        private string $type,
-        private string $addressFormat,
-        private string $legacyAddress,
-        private string $enterpriseAddress,
+        public string $assetId,
+        public string $address,
+        public string $tag,
+        public string $description,
+        public string $type,
+        public string $addressFormat,
+        public string $legacyAddress,
+        public string $enterpriseAddress,
     )
     {
     }

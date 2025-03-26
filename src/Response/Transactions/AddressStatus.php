@@ -9,9 +9,9 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class AddressStatus implements ItemInterface
 {
     public function __construct(
-        private bool $isValid,
-        private bool $isActive,
-        private bool $requiresTag,
+        public bool $isValid,
+        public bool $isActive,
+        public bool $requiresTag,
     )
     {
 

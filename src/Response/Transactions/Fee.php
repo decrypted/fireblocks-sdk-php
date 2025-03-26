@@ -9,9 +9,9 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Fee implements ItemInterface
 {
     public function __construct(
-        private string $feePerByte,
-        private string $gasPrice,
-        private string $networkFee,
+        public string $feePerByte,
+        public string $gasPrice,
+        public string $networkFee,
     )
     {
 

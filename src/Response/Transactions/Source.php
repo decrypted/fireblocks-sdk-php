@@ -9,10 +9,10 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Source implements ItemInterface
 {
     public function __construct(
-        private string $type,
-        private string $id,
-        private string $name,
-        private string $subType,
+        public string $type,
+        public string $id,
+        public string $name,
+        public string $subType,
     )
     {
     }

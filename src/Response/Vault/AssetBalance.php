@@ -9,15 +9,15 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class AssetBalance implements ItemInterface
 {
     public function __construct(
-        private string $id,
-        private string $total,
-        private string $balance,
-        private string $lockedAmount,
-        private string $available,
-        private string $pending,
-        private string $frozen,
-        private string $staked,
-        private string $blockHeight,
+        public string  $id,
+        public string  $total,
+        public string  $balance,
+        public string  $lockedAmount,
+        public string  $available,
+        public string  $pending,
+        public string  $frozen,
+        public string  $staked,
+        public ?string $blockHeight,
     )
     {
 

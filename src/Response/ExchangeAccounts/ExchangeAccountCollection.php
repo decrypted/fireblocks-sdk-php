@@ -9,15 +9,6 @@ use JetBrains\PhpStorm\Pure;
 
 final class ExchangeAccountCollection extends Collection
 {
-    /**
-     * @return array<ExchangeAccount>
-     */
-    #[Pure]
-    public function getExchangeAccounts(): array
-    {
-        return $this->getCollection();
-    }
-
     public static function getSupportedItem(): string
     {
         return ExchangeAccount::class;
@@ -26,6 +17,15 @@ final class ExchangeAccountCollection extends Collection
     public static function getItemsKey(): string
     {
         return 'accounts';
+    }
+
+    /**
+     * @return array<ExchangeAccount>
+     */
+    #[Pure]
+    public function getExchangeAccounts(): array
+    {
+        return $this->getCollection();
     }
 
 

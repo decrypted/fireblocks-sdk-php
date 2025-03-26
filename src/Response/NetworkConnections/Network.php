@@ -9,9 +9,9 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Network implements ItemInterface
 {
     public function __construct(
-        private string $id,
-        private Channel $localChannel,
-        private Channel $remoteChannel,
+        public string  $id,
+        public Channel $localChannel,
+        public Channel $remoteChannel,
     )
     {
     }

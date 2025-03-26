@@ -9,8 +9,8 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Input implements ItemInterface
 {
     public function __construct(
-        private string $txHash,
-        private int $index,
+        public string $txHash,
+        public int    $index,
     )
     {
 

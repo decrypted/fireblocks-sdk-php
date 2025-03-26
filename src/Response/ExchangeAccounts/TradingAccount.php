@@ -9,8 +9,8 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class TradingAccount implements ItemInterface
 {
     public function __construct(
-        private string $type,
-        private AssetCollection $assets,
+        public string          $type,
+        public AssetCollection $assets,
     )
     {
     }

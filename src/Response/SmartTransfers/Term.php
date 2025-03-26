@@ -9,14 +9,14 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Term implements ItemInterface
 {
     public function __construct(
-        private string $termId,
-        private string $txId,
-        private string $networkConnectionId,
-        private bool $outgoing,
-        private string $amount,
-        private string $asset,
-        private string $status,
-        private string $description,
+        public string $termId,
+        public string $txId,
+        public string $networkConnectionId,
+        public bool   $outgoing,
+        public string $amount,
+        public string $asset,
+        public string $status,
+        public string $description,
     )
     {
 

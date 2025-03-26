@@ -9,20 +9,20 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class AssetValueBalance implements ItemInterface
 {
     public function __construct(
-        private string $id,
-        private float $total,
-        private int $pending,
-        private int $lockedAmount,
-        private float $available,
-        private int $frozen,
-        private ?string $totalStakedCPU,
-        private ?string $totalStakedNetwork,
-        private ?string $selfStakedCPU,
-        private ?string $selfStakedNetwork,
-        private ?string $pendingRefundCPU,
-        private ?string $pendingRefundNetwork,
-        private string $blockHeight,
-        private ?string $blockHash
+        public string  $id,
+        public float   $total,
+        public int     $pending,
+        public int     $lockedAmount,
+        public float   $available,
+        public int     $frozen,
+        public ?string $totalStakedCPU,
+        public ?string $totalStakedNetwork,
+        public ?string $selfStakedCPU,
+        public ?string $selfStakedNetwork,
+        public ?string $pendingRefundCPU,
+        public ?string $pendingRefundNetwork,
+        public ?string $blockHeight,
+        public ?string $blockHash
     )
     {
 

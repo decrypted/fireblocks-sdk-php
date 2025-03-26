@@ -9,10 +9,10 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class AmountInfo implements ItemInterface
 {
     public function __construct(
-        private string $amount,
-        private ?string $requestedAmount,
-        private ?string $netAmount,
-        private ?string $amountUSD,
+        public string  $amount,
+        public ?string $requestedAmount,
+        public ?string $netAmount,
+        public ?string $amountUSD,
     )
     {
     }

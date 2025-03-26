@@ -9,11 +9,11 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class TransferTicket implements ItemInterface
 {
     public function __construct(
-        private string         $ticketId,
-        private string         $externalTicketId,
-        private string         $status,
-        private string         $description,
-        private TermCollection $terms,
+        public string         $ticketId,
+        public string         $externalTicketId,
+        public string         $status,
+        public string         $description,
+        public TermCollection $terms,
 
     )
     {

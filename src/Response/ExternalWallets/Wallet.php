@@ -9,10 +9,10 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class Wallet implements ItemInterface
 {
     public function __construct(
-        private string          $id,
-        private string          $name,
-        private string          $customerRefId,
-        private AssetCollection $assets,
+        public string          $id,
+        public string          $name,
+        public string          $customerRefId,
+        public AssetCollection $assets,
     )
     {
     }

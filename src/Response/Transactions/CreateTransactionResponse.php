@@ -9,8 +9,8 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class CreateTransactionResponse implements ItemInterface
 {
     public function __construct(
-        private string $id,
-        private string $status,
+        public string $id,
+        public string $status,
     )
     {
 

@@ -9,8 +9,8 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 final class GasStation implements ItemInterface
 {
     public function __construct(
-        private array         $balance,
-        private Configuration $configuration,
+        public array         $balance,
+        public Configuration $configuration,
     )
     {
     }

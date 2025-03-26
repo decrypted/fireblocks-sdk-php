@@ -9,15 +9,6 @@ use JetBrains\PhpStorm\Pure;
 
 final class UnspentInputsCollection extends Collection
 {
-    /**
-     * @return array<Address>
-     */
-    #[Pure]
-    public function getUnspentInputs(): array
-    {
-        return $this->getCollection();
-    }
-
     public static function getSupportedItem(): string
     {
         return UnspentInput::class;
@@ -26,6 +17,15 @@ final class UnspentInputsCollection extends Collection
     public static function getItemsKey(): string
     {
         return 'unspentInputs';
+    }
+
+    /**
+     * @return array<Address>
+     */
+    #[Pure]
+    public function getUnspentInputs(): array
+    {
+        return $this->getCollection();
     }
 
 

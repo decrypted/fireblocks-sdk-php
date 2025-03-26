@@ -9,15 +9,6 @@ use JetBrains\PhpStorm\Pure;
 
 final class AssetCollection extends Collection
 {
-    /**
-     * @return array<Asset>
-     */
-    #[Pure]
-    public function getAssets(): array
-    {
-        return $this->getCollection();
-    }
-
     public static function getSupportedItem(): string
     {
         return Asset::class;
@@ -26,6 +17,15 @@ final class AssetCollection extends Collection
     public static function getItemsKey(): string
     {
         return 'assets';
+    }
+
+    /**
+     * @return array<Asset>
+     */
+    #[Pure]
+    public function getAssets(): array
+    {
+        return $this->getCollection();
     }
 
 }

@@ -7,9 +7,9 @@ namespace Jaddek\Fireblocks\Http\Response\Transactions;
 final class NetworkFee
 {
     public function __construct(
-        private Fee $low,
-        private Fee $medium,
-        private Fee $high,
+        public Fee $low,
+        public Fee $medium,
+        public Fee $high,
     )
     {
 

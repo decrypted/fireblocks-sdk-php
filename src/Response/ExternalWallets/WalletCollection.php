@@ -9,15 +9,6 @@ use JetBrains\PhpStorm\Pure;
 
 final class WalletCollection extends Collection
 {
-    /**
-     * @return array<Wallet>
-     */
-    #[Pure]
-    public function getAssets(): array
-    {
-        return $this->getCollection();
-    }
-
     public static function getSupportedItem(): string
     {
         return Wallet::class;
@@ -26,6 +17,15 @@ final class WalletCollection extends Collection
     public static function getItemsKey(): string
     {
         return 'wallets';
+    }
+
+    /**
+     * @return array<Wallet>
+     */
+    #[Pure]
+    public function getAssets(): array
+    {
+        return $this->getCollection();
     }
 
 }
