@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Jaddek\Fireblocks\Http;
 
+use Exception;
 use Jaddek\Fireblocks\Http\Response\CollectionInterface;
 use Jaddek\Fireblocks\Http\Response\ItemInterface;
+use ReflectionClass;
+use ReflectionNamedType;
 
 final class Hydrator
 {
@@ -13,7 +16,7 @@ final class Hydrator
 
     public static function instance(array $data, string $class): ItemInterface|CollectionInterface
     {
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
 
         $instance = new static;
         $instance->associate($reflection);
@@ -21,42 +24,49 @@ final class Hydrator
         $result = $instance->hydrate($data, $reflection);
 
         if (!$result instanceof $class) {
-            throw new \Exception('Hydration failed');
+            throw new Exception('Hydration failed');
         }
 
         return $result;
     }
 
-    private function hydrate(array $data, \ReflectionClass $reflection): ItemInterface|CollectionInterface
+    private function hydrate(array $data, ReflectionClass $reflection): ItemInterface|CollectionInterface
     {
         $class = $reflection->getName();
 
         return match ($this->matchSubclass($reflection)) {
             CollectionInterface::class => $this->hydrateCollection($data, $class),
             ItemInterface::class => $this->hydrateItem($data, $class),
-            default => throw new \Exception('Unexpected subclass'),
+            default => throw new Exception('Unexpected subclass'),
         };
+    }
+
+    private function hydrateCollectionItems(CollectionInterface $collection, $data): void
+    {
+        foreach ($data as $item_data) {
+            $item = $this->hydrateItem($item_data, $collection::getSupportedItem());
+            $collection->add($item);
+        }
     }
 
     private function hydrateCollection(array $data, string $class): CollectionInterface
     {
-        $collection = new $class;
-        foreach ($data as $array) {
-            foreach ($array as $key => &$value) {
-                if (is_object($value)) {
-                    $value = (array)$value;
+        /** @var  CollectionInterface $collection */
+        $collection = new $class();
+        foreach ($data as $key => $array) {
+            if (is_array($data) && isset($this->levels[$key])) {
+                if ($data['nextUrl']) {
+                    $collection->setNextUrl($data['nextUrl']);
                 }
-
-                if (is_array($value) && isset($this->levels[$key])) {
-                    $value = $this->hydrateCollection($value, $this->levels[$key]);
+                if ($data['previousUrl']) {
+                    $collection->setPreviousUrl($data['previousUrl']);
                 }
+                if ($data['paging']) { // paging is always an array
+                    $collection->setPaging($data['paging']);
+                }
+                $this->hydrateCollectionItems($collection, $array, $this->levels[$key]);
             }
-
-            /** @var CollectionInterface $class */
-            $item = $this->hydrateItem($array, $class::getSupportedItem());
-            $collection->add($item);
         }
-
         return $collection;
     }
 
@@ -64,12 +74,15 @@ final class Hydrator
     {
         foreach ($data as $key => &$value) {
             if (is_array($value) && isset($this->levels[$key])) {
-                $value = $this->hydrateCollection($value, $this->levels[$key]);
+                $collection = new $this->levels[$key]();
+                assert($collection instanceof CollectionInterface);
+                $this->hydrateCollectionItems($collection, $value);
+                $value = $collection;
             }
         }
 
         $newArray   = [];
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
 
         foreach ($reflection->getConstructor()->getParameters() as $parameter) {
             $parameterValue = $data[$parameter->getName()] ?? null;
@@ -92,7 +105,7 @@ final class Hydrator
             $isNullable = $parameter->getType()->allowsNull();
 
             if (($valueType === 'NULL' && !$isNullable) && ($valueType !== $paramType)) {
-                throw new \Exception(sprintf('Different types. An attribute <%s> expecting %s, got %s',
+                throw new Exception(sprintf('Different types. An attribute <%s> expecting %s, got %s',
                     $parameter->getName(),
                     $parameter->getType()->getName(),
                     $this->getType($parameterValue)
@@ -104,28 +117,28 @@ final class Hydrator
         return new $class(...array_values($newArray));
     }
 
-    private function matchSubclass(\ReflectionClass $reflection): string
+    private function matchSubclass(ReflectionClass $reflection): string
     {
         return match (true) {
             $reflection->isSubclassOf(CollectionInterface::class) => CollectionInterface::class,
             $reflection->isSubclassOf(ItemInterface::class) => ItemInterface::class,
-            default => throw new \Exception(sprintf('Unexpected %s subclass', $reflection->getName())),
+            default => throw new Exception(sprintf('Unexpected %s subclass', $reflection->getName())),
         };
     }
 
-    private function associate(\ReflectionClass $reflection): self
+    private function associate(ReflectionClass $reflection): self
     {
         match ($this->matchSubclass($reflection)) {
             CollectionInterface::class => $this->associateCollection($reflection),
             ItemInterface::class => $this->associateItem($reflection),
-            default => throw new \Exception('Unexpected subclass'),
+            default => throw new Exception('Unexpected subclass'),
         };
 
         return $this;
     }
 
 
-    private function associateCollection(\ReflectionClass $reflection): void
+    private function associateCollection(ReflectionClass $reflection): void
     {
         /** @var CollectionInterface $class */
         $class         = $reflection->getName();
@@ -134,20 +147,20 @@ final class Hydrator
 
         $this->levels[$itemKey] = $class;
 
-        $this->associate(new \ReflectionClass($supportedItem));
+        $this->associate(new ReflectionClass($supportedItem));
     }
 
-    private function associateItem(\ReflectionClass $reflection)
+    private function associateItem(ReflectionClass $reflection)
     {
         foreach ($reflection->getProperties() as $property) {
             $type = $property->getType();
 
             //@TODO: ReflectionUnionTypes
 
-            if ($type instanceof \ReflectionNamedType && $type->isBuiltin() === false) {
+            if ($type instanceof ReflectionNamedType && $type->isBuiltin() === false) {
                 $item = $type->getName();
 
-                $this->associate(new \ReflectionClass($item));
+                $this->associate(new ReflectionClass($item));
             }
         }
     }
