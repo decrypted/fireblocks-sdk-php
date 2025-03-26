@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Jaddek\Fireblocks\Http\Provider;
 
 use Jaddek\Fireblocks\Http\Endpoint\VaultInterface;
-use Jaddek\Fireblocks\Http\Hydrator;
 use Jaddek\Fireblocks\Http\Response\CollectionInterface;
 use Jaddek\Fireblocks\Http\Response\ItemInterface;
-use Jaddek\Fireblocks\Http\Response\Vault\Account;
-use Jaddek\Fireblocks\Http\Response\Vault\AccountCollection;
-use Jaddek\Fireblocks\Http\Response\Vault\MaximumSpendableAmount;
 
 final class VaultProvider extends Provider
 {
@@ -22,6 +18,13 @@ final class VaultProvider extends Provider
     public function getAccounts(): array|CollectionInterface|ItemInterface
     {
         $response = $this->endpoint->getAccounts();
+
+        return $response->toArray();
+    }
+
+    public function getAccountsPaged(?string $namePrefix = null, ?string $nameSuffix = null, ?float $minAmountThreshold = null, ?string $assetId = null, ?string $orderBy = null, ?string $before = null, ?string $after = null, ?int $limit = null): array|CollectionInterface|ItemInterface
+    {
+        $response = $this->endpoint->getAccountsPaged($namePrefix, $nameSuffix, $minAmountThreshold, $assetId, $orderBy, $before, $after, $limit);
 
         return $response->toArray();
     }

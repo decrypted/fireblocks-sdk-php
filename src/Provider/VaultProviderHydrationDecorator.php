@@ -9,7 +9,6 @@ use Jaddek\Fireblocks\Http\Response\CollectionInterface;
 use Jaddek\Fireblocks\Http\Response\ItemInterface;
 use Jaddek\Fireblocks\Http\Response\Vault\Account;
 use Jaddek\Fireblocks\Http\Response\Vault\AccountCollection;
-use Jaddek\Fireblocks\Http\Response\Vault\Address;
 use Jaddek\Fireblocks\Http\Response\Vault\AddressCollection;
 use Jaddek\Fireblocks\Http\Response\Vault\AssetBalance;
 use Jaddek\Fireblocks\Http\Response\Vault\AssetValueBalance;
@@ -27,6 +26,11 @@ final class  VaultProviderHydrationDecorator
     public function getAccounts(): AccountCollection|CollectionInterface
     {
         return Hydrator::instance($this->provider->getAccounts(), AccountCollection::class);
+    }
+
+    public function getAccountsPaged(?string $namePrefix = null, ?string $nameSuffix = null, ?float $minAmountThreshold = null, ?string $assetId = null, ?string $orderBy = null, ?string $before = null, ?string $after = null, ?int $limit = null): AccountCollection|CollectionInterface
+    {
+        return Hydrator::instance($this->provider->getAccountsPaged($namePrefix, $nameSuffix, $minAmountThreshold, $assetId, $orderBy, $before, $after, $limit), AccountCollection::class);
     }
 
     public function getAccount(string $vaultAccountId): Account|ItemInterface

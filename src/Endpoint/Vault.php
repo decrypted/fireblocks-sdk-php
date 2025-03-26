@@ -15,6 +15,41 @@ final class Vault extends Endpoint implements VaultInterface
         return $this->request('GET', $url);
     }
 
+    public function getAccountsPaged(?string $namePrefix = null, ?string $nameSuffix = null, ?float $minAmountThreshold = null, ?string $assetId = null, ?string $orderBy = null, ?string $before = null, ?string $after = null, ?int $limit = null): ResponseInterface
+    {
+        $url = '/v1/vault/accounts_paged';
+
+        $data = [];
+        if ($namePrefix) {
+            $data['namePrefix'] = $namePrefix;
+        }
+        if ($nameSuffix) {
+            $data['nameSuffix'] = $nameSuffix;
+        }
+        if ($minAmountThreshold) {
+            $data['minAmountThreshold'] = $minAmountThreshold;
+        }
+        if ($assetId) {
+            $data['assetId'] = $assetId;
+        }
+        if ($orderBy) {
+            $data['orderBy'] = $orderBy;
+        }
+        if ($before) {
+            $data['before'] = $before;
+        }
+        if ($after) {
+            $data['after'] = $after;
+        }
+        if ($limit) {
+            $data['limit'] = $limit;
+        }
+        if (count($data)) {
+            $url .= '?' . http_build_query($data);
+        }
+        return $this->request('GET', $url);
+    }
+
     public function getAccount(string $vaultAccountId): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}', [

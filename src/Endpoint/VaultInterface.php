@@ -10,6 +10,8 @@ interface VaultInterface
 {
     public function getAccounts(): ResponseInterface;
 
+    public function getAccountsPaged(?string $namePrefix = null, ?string $nameSuffix = null, ?float $minAmountThreshold = null, ?string $assetId = null, ?string $orderBy = null, ?string $before = null, ?string $after = null, ?int $limit = null): ResponseInterface;
+
     public function getAccount(string $vaultAccountId): ResponseInterface;
 
     public function createNewAccount(): ResponseInterface;
