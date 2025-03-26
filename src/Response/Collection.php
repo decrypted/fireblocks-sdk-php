@@ -26,7 +26,7 @@ abstract class Collection implements CollectionInterface, JsonSerializable
 
     public function getCollection(): array
     {
-        return $this->collection;
+        return $this->collection ?? [];
     }
 
     public function getPaging(): array
