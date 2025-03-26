@@ -17,6 +17,7 @@ final class SupportedAssetsProviderHydrationDecorator extends Provider
 
     public function getSupportedAssets(): CollectionInterface|AssetCollection
     {
-        return Hydrator::instance($this->provider->getSupportedAssets(), AssetCollection::class);
+        $data['assets'] = $this->provider->getSupportedAssets();
+        return Hydrator::instance($data, AssetCollection::class);
     }
 }

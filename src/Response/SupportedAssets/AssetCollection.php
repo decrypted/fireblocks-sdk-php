@@ -17,4 +17,12 @@ final class AssetCollection extends Collection
     {
         return 'assets';
     }
+
+    /**
+     * @return array<Asset>
+     */
+    public function getAssets(): array
+    {
+        return $this->getCollection();
+    }
 }
