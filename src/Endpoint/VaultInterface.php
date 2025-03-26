@@ -14,9 +14,9 @@ interface VaultInterface
 
     public function getAccount(string $vaultAccountId): ResponseInterface;
 
-    public function createNewAccount(): ResponseInterface;
+    public function createNewAccount(string $name, bool $hiddenOnUI, bool $autoFuel, ?string $customerRefId): ResponseInterface;
 
-    public function renameAccount(string $vaultAccountId): ResponseInterface;
+    public function renameAccount(string $vaultAccountId, string $name): ResponseInterface;
 
     public function getBalanceOfAccountAsset(string $vaultAccountId, string $assetId): ResponseInterface;
 
@@ -28,9 +28,11 @@ interface VaultInterface
 
     public function getAccountAddresses(string $vaultAccountId, string $assetId): ResponseInterface;
 
-    public function createDepositAddress(string $vaultAccountId, string $assetId): ResponseInterface;
+    public function getAccountAddressesPaged(string $vaultAccountId, string $assetId, ?string $before = null, ?string $after = null, int $limit = 100): ResponseInterface;
 
-    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId): ResponseInterface;
+    public function createDepositAddress(string $vaultAccountId, string $assetId, ?string $description = null, ?string $customerRefId = null): ResponseInterface;
+
+    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId, string $description): ResponseInterface;
 
     public function getMaximumSpendableAmount(string $vaultAccountId, string $assetId): ResponseInterface;
 

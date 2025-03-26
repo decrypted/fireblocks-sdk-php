@@ -36,16 +36,16 @@ final class VaultProvider extends Provider
         return $response->toArray();
     }
 
-    public function createNewAccount(): array
+    public function createNewAccount(string $name, bool $hiddenOnUI, bool $autoFuel, ?string $customerRefId, ?string $IdempotencyKey = null): array
     {
-        $response = $this->endpoint->createNewAccount();
+        $response = $this->endpoint->createNewAccount($name, $hiddenOnUI, $autoFuel, $customerRefId, $IdempotencyKey);
 
         return $response->toArray();
     }
 
-    public function renameAccount(string $vaultAccountId): array
+    public function renameAccount(string $vaultAccountId, string $name): array
     {
-        $response = $this->endpoint->renameAccount($vaultAccountId);
+        $response = $this->endpoint->renameAccount($vaultAccountId, $name);
 
         return $response->toArray();
     }
@@ -57,9 +57,9 @@ final class VaultProvider extends Provider
         return $response->toArray();
     }
 
-    public function createNewWallet(string $vaultAccountId, string $assetId): array
+    public function createNewWallet(string $vaultAccountId, string $assetId, ?string $IdempotencyKey = null): array
     {
-        $response = $this->endpoint->createNewWallet($vaultAccountId, $assetId);
+        $response = $this->endpoint->createNewWallet($vaultAccountId, $assetId, $IdempotencyKey);
 
         return $response->toArray();
     }
@@ -74,27 +74,31 @@ final class VaultProvider extends Provider
     public function showAccountInWebConsole(string $vaultAccountId): array
     {
         $response = $this->endpoint->showAccountInWebConsole($vaultAccountId);
-
         return $response->toArray();
     }
 
     public function getAccountAddresses(string $vaultAccountId, string $assetId): array
     {
         $response = $this->endpoint->getAccountAddresses($vaultAccountId, $assetId);
+        return $response->toArray();
+    }
+
+    public function getAccountAddressesPaged(string $vaultAccountId, string $assetId, ?string $before = null, ?string $after = null, int $limit = 100): array
+    {
+        $response = $this->endpoint->getAccountAddressesPaged($vaultAccountId, $assetId, $before, $after, $limit);
+        return $response->toArray();
+    }
+
+    public function createDepositAddress(string $vaultAccountId, string $assetId, ?string $description = null, ?string $customerRefId = null, ?string $IdempotencyKey = null): array
+    {
+        $response = $this->endpoint->createDepositAddress($vaultAccountId, $assetId, $description, $customerRefId, $IdempotencyKey);
 
         return $response->toArray();
     }
 
-    public function createDepositAddress(string $vaultAccountId, string $assetId): array
+    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId, string $description): array
     {
-        $response = $this->endpoint->createDepositAddress($vaultAccountId, $assetId);
-
-        return $response->toArray();
-    }
-
-    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId): array
-    {
-        $response = $this->endpoint->renameAddress($vaultAccountId, $assetId, $addressId);
+        $response = $this->endpoint->renameAddress($vaultAccountId, $assetId, $addressId, $description);
 
         return $response->toArray();
     }

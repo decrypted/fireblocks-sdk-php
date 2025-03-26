@@ -6,7 +6,6 @@ namespace Jaddek\Fireblocks\Http\Endpoint;
 
 use Jaddek\Fireblocks\Http\Signer;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -37,22 +36,13 @@ abstract class Endpoint
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    protected function request(string $method, string $url, array $options = []): ResponseInterface
+    protected function request(string $method, string $url, array $options = [], ?string $IdempotencyKey = null): ResponseInterface
     {
-        try {
-            return $this->doRequest($method, $url, $options);
-        } catch (ClientException $exception) {
-            $response = $exception->getResponse();
-
-            $this->logger?->debug(sprintf('%s:%s:response', __CLASS__, __FUNCTION__), [
-                'response' => [
-                    'content' => $response->getContent(false),
-                    'headers' => $response->getHeaders(false)
-                ]
-            ]);
-
-            return $response;
+        if ($IdempotencyKey) {
+            $options['headers']['Idempotency-Key'] = $IdempotencyKey;
         }
+        //request is then actually executed if ->toArray() is called
+        return $this->doRequest($method, $url, $options);
     }
 
     protected function doRequest(string $method, string $url, array $options = []): ResponseInterface

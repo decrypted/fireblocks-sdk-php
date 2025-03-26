@@ -9,11 +9,13 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 
 final class Account implements ItemInterface
 {
+    //https://developers.fireblocks.com/reference/getpagedvaultaccounts
     public function __construct(
         public string          $id,
         public string          $name,
         public bool            $hiddenOnUI,
         public bool            $autoFuel,
+        public ?string $customerRefId,
         public AssetCollection $assets,
     )
     {
@@ -58,5 +60,10 @@ final class Account implements ItemInterface
     public function getAssets(): Collection
     {
         return $this->assets;
+    }
+
+    public function getCustomerRefId(): ?string
+    {
+        return $this->customerRefId;
     }
 }

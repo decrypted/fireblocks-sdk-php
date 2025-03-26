@@ -14,6 +14,7 @@ use Jaddek\Fireblocks\Http\Response\Vault\AssetBalance;
 use Jaddek\Fireblocks\Http\Response\Vault\AssetValueBalance;
 use Jaddek\Fireblocks\Http\Response\Vault\MaximumSpendableAmount;
 use Jaddek\Fireblocks\Http\Response\Vault\NewAddress;
+use Jaddek\Fireblocks\Http\Response\Vault\NewWallet;
 use Jaddek\Fireblocks\Http\Response\Vault\UnspentInputsCollection;
 
 final class  VaultProviderHydrationDecorator
@@ -38,15 +39,14 @@ final class  VaultProviderHydrationDecorator
         return Hydrator::instance($this->provider->getAccount($vaultAccountId), Account::class);
     }
 
-    public function createNewAccount(): array
+    public function createNewAccount(string $name, bool $hiddenOnUI, bool $autoFuel, ?string $customerRefId): Account|ItemInterface
     {
-        return $this->provider->createNewAccount();
-
+        return Hydrator::instance($this->provider->createNewAccount($name, $hiddenOnUI, $autoFuel, $customerRefId), Account::class);
     }
 
-    public function renameAccount(string $vaultAccountId): array
+    public function renameAccount(string $vaultAccountId, string $name): array
     {
-        return $this->provider->renameAccount($vaultAccountId);
+        return $this->provider->renameAccount($vaultAccountId, $name);
     }
 
     public function getBalanceOfAccountAsset(string $vaultAccountId, string $assetId): AssetBalance|ItemInterface
@@ -54,9 +54,9 @@ final class  VaultProviderHydrationDecorator
         return Hydrator::instance($this->provider->getBalanceOfAccountAsset($vaultAccountId, $assetId), AssetBalance::class);
     }
 
-    public function createNewWallet(string $vaultAccountId, string $assetId): array
+    public function createNewWallet(string $vaultAccountId, string $assetId): NewWallet|ItemInterface
     {
-        return $this->provider->createNewWallet($vaultAccountId, $assetId);
+        return Hydrator::instance($this->provider->createNewWallet($vaultAccountId, $assetId), NewWallet::class);
     }
 
     public function hideAccountInWebConsole(string $vaultAccountId): array
@@ -74,14 +74,23 @@ final class  VaultProviderHydrationDecorator
         return Hydrator::instance($this->provider->getAccountAddresses($vaultAccountId, $assetId), AddressCollection::class);
     }
 
-    public function createDepositAddress(string $vaultAccountId, string $assetId): NewAddress|ItemInterface
+    public function getAccountAddressesPaged(string $vaultAccountId, string $assetId, ?string $before = null, ?string $after = null, int $limit = 100): AddressCollection|CollectionInterface
     {
-        return Hydrator::instance($this->provider->createDepositAddress($vaultAccountId, $assetId), NewAddress::class);
+        return Hydrator::instance($this->provider->getAccountAddressesPaged($vaultAccountId, $assetId, $before, $after, $limit), AddressCollection::class);
     }
 
-    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId): array
+    public function createDepositAddress(string $vaultAccountId, string $assetId, ?string $description = null, ?string $customerRefId = null, ?string $IdempotencyKey = null): NewAddress|ItemInterface
     {
-        return $this->provider->renameAddress($vaultAccountId, $assetId, $addressId);
+        $data = $this->provider->createDepositAddress($vaultAccountId, $assetId, $description, $customerRefId, $IdempotencyKey);
+        $data['assetId'] = $assetId;
+        $data['customerRefId'] = $customerRefId;
+        $data['description'] = $description;
+        return Hydrator::instance($data, NewAddress::class);
+    }
+
+    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId, string $description): array
+    {
+        return $this->provider->renameAddress($vaultAccountId, $assetId, $addressId, $description);
     }
 
     public function getMaximumSpendableAmount(string $vaultAccountId, string $assetId): MaximumSpendableAmount|CollectionInterface

@@ -59,20 +59,37 @@ final class Vault extends Endpoint implements VaultInterface
         return $this->request('GET', $url);
     }
 
-    public function createNewAccount(): ResponseInterface
+    public function createNewAccount(string $name, bool $hiddenOnUI, bool $autoFuel, ?string $customerRefId, ?string $IdempotencyKey = null): ResponseInterface
     {
         $url = '/v1/vault/accounts';
+        $options = [
+            'json' => [
+                'name' => $name,
+                'hiddenOnUI' => $hiddenOnUI,
+                'autoFuel' => $autoFuel,
+            ]
+        ];
 
-        return $this->request('POST', $url);
+        if ($customerRefId) {
+            $options['json']['customerRefId'] = $customerRefId;
+        }
+
+        return $this->request('POST', $url, $options, $IdempotencyKey);
     }
 
-    public function renameAccount(string $vaultAccountId): ResponseInterface
+    public function renameAccount(string $vaultAccountId, string $name): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}', [
-            '{vaultAccountId}' => urlencode($vaultAccountId)
+            '{vaultAccountId}' => urlencode($vaultAccountId),
         ]);
 
-        return $this->request('PUT', $url);
+        $options = [
+            'json' => [
+                'name' => $name,
+            ]
+        ];
+
+        return $this->request('PUT', $url, $options);
     }
 
     public function getBalanceOfAccountAsset(string $vaultAccountId, string $assetId): ResponseInterface
@@ -85,14 +102,14 @@ final class Vault extends Endpoint implements VaultInterface
         return $this->request('GET', $url);
     }
 
-    public function createNewWallet(string $vaultAccountId, string $assetId): ResponseInterface
+    public function createNewWallet(string $vaultAccountId, string $assetId, ?string $IdempotencyKey = null): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}', [
             '{vaultAccountId}' => urlencode($vaultAccountId),
             '{assetId}'        => urlencode($assetId)
         ]);
 
-        return $this->request('POST', $url);
+        return $this->request('POST', $url, [], $IdempotencyKey);
     }
 
     public function hideAccountInWebConsole(string $vaultAccountId): ResponseInterface
@@ -123,17 +140,48 @@ final class Vault extends Endpoint implements VaultInterface
         return $this->request('GET', $url);
     }
 
-    public function createDepositAddress(string $vaultAccountId, string $assetId): ResponseInterface
+    public function getAccountAddressesPaged(string $vaultAccountId, string $assetId, ?string $before = null, ?string $after = null, int $limit = 100): ResponseInterface
+    {
+        $data = [
+            '{vaultAccountId}' => urlencode($vaultAccountId),
+            '{assetId}' => urlencode($assetId),
+        ];
+        if ($before) {
+            $data['before'] = $before;
+        }
+        if ($after) {
+            $data['after'] = $after;
+        }
+        if ($limit) {
+            $data['limit'] = $limit;
+        }
+        $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated', $data);
+        return $this->request('GET', $url);
+    }
+
+    public function createDepositAddress(string $vaultAccountId, string $assetId, ?string $description = null, ?string $customerRefId = null, ?string $IdempotencyKey = null): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/addresses', [
             '{vaultAccountId}' => urlencode($vaultAccountId),
             '{assetId}'        => urlencode($assetId),
         ]);
 
-        return $this->request('POST', $url);
+        $options = [
+            'json' => [
+            ]
+        ];
+
+        if ($description) {
+            $options['json']['description'] = $description;
+        }
+        if ($customerRefId) {
+            $options['json']['customerRefId'] = $customerRefId;
+        }
+
+        return $this->request('POST', $url, $options, $IdempotencyKey);
     }
 
-    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId): ResponseInterface
+    public function renameAddress(string $vaultAccountId, string $assetId, string $addressId, string $description): ResponseInterface
     {
         $url = strtr('/v1/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}', [
             '{vaultAccountId}' => urlencode($vaultAccountId),
@@ -141,7 +189,13 @@ final class Vault extends Endpoint implements VaultInterface
             '{addressId}'      => urlencode($addressId),
         ]);
 
-        return $this->request('PUT', $url);
+        $options = [
+            'json' => [
+                'description' => $description,
+            ]
+        ];
+
+        return $this->request('PUT', $url, $options);
     }
 
     public function getMaximumSpendableAmount(string $vaultAccountId, string $assetId): ResponseInterface

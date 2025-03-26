@@ -8,15 +8,14 @@ use Jaddek\Fireblocks\Http\Response\ItemInterface;
 
 final class Asset implements ItemInterface
 {
+    //https://developers.fireblocks.com/reference/getpagedvaultaccounts
     public function __construct(
         public string  $id,
         public string  $total,
-        public string  $balance,
         public string  $lockedAmount,
         public string  $available,
         public string  $pending,
         public string  $frozen,
-        public string  $staked,
         public ?string $blockHeight,
     )
     {
@@ -36,14 +35,6 @@ final class Asset implements ItemInterface
     public function getTotal(): string
     {
         return $this->total;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBalance(): string
-    {
-        return $this->balance;
     }
 
     /**
@@ -76,14 +67,6 @@ final class Asset implements ItemInterface
     public function getFrozen(): string
     {
         return $this->frozen;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStaked(): string
-    {
-        return $this->staked;
     }
 
     /**

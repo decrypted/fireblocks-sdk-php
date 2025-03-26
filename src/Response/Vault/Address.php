@@ -14,9 +14,12 @@ final class Address implements ItemInterface
         public string $tag,
         public string $description,
         public string $type,
-        public string $addressFormat,
+        public ?string $addressFormat,
         public string $legacyAddress,
         public string $enterpriseAddress,
+        public ?string $customerRefId,
+        public int     $bip44AddressIndex,
+        public ?bool   $userDefined
     )
     {
     }
@@ -64,7 +67,7 @@ final class Address implements ItemInterface
     /**
      * @return string
      */
-    public function getAddressFormat(): string
+    public function getAddressFormat(): ?string
     {
         return $this->addressFormat;
     }
@@ -83,5 +86,20 @@ final class Address implements ItemInterface
     public function getEnterpriseAddress(): string
     {
         return $this->enterpriseAddress;
+    }
+
+    public function getCustomerRefId(): ?string
+    {
+        return $this->customerRefId;
+    }
+
+    public function getBip44AddressIndex(): int
+    {
+        return $this->bip44AddressIndex;
+    }
+
+    public function getUserDefined(): bool
+    {
+        return $this->userDefined;
     }
 }
