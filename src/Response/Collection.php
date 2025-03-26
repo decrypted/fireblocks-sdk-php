@@ -8,7 +8,7 @@ use JsonSerializable;
 
 abstract class Collection implements CollectionInterface, JsonSerializable
 {
-    public array $collection;
+    public array $collection = [];
 
     protected array $paging = [];
     protected ?string $previousUrl = null;
