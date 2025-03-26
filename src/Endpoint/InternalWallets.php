@@ -29,7 +29,7 @@ final class InternalWallets extends Endpoint implements InternalWalletsInterface
     public function retrieveWallet(string $walletId): ResponseInterface
     {
         $url = strtr('/v1/internal_wallets/{walletId}', [
-            '{walletId}' => $walletId,
+            '{walletId}' => urlencode($walletId),
         ]);
 
         return $this->request('GET', $url);
@@ -38,7 +38,7 @@ final class InternalWallets extends Endpoint implements InternalWalletsInterface
     public function deleteWallet(string $walletId): ResponseInterface
     {
         $url = strtr('/v1/internal_wallets/{walletId}', [
-            '{walletId}' => $walletId,
+            '{walletId}' => urlencode($walletId),
         ]);
 
         return $this->request('DELETE', $url);
@@ -47,8 +47,8 @@ final class InternalWallets extends Endpoint implements InternalWalletsInterface
     public function retrieveAsset(string $walletId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/internal_wallets/{walletId}/{assetId}', [
-            '{walletId}' => $walletId,
-            '{assetId}'  => $assetId,
+            '{walletId}' => urlencode($walletId),
+            '{assetId}'  => urlencode($assetId),
         ]);
 
         return $this->request('GET', $url);
@@ -57,8 +57,8 @@ final class InternalWallets extends Endpoint implements InternalWalletsInterface
     public function addAsset(string $walletId, string $assetId, Asset $asset): ResponseInterface
     {
         $url = strtr('/v1/internal_wallets/{walletId}/{assetId}', [
-            '{walletId}' => $walletId,
-            '{assetId}'  => $assetId,
+            '{walletId}' => urlencode($walletId),
+            '{assetId}'  => urlencode($assetId),
         ]);
 
         return $this->request('POST', $url, [
@@ -69,8 +69,8 @@ final class InternalWallets extends Endpoint implements InternalWalletsInterface
     public function deleteAsset(string $walletId, string $assetId): ResponseInterface
     {
         $url = strtr('/v1/internal_wallets/{walletId}/{assetId}', [
-            '{walletId}' => $walletId,
-            '{assetId}'  => $assetId,
+            '{walletId}' => urlencode($walletId),
+            '{assetId}'  => urlencode($assetId),
         ]);
 
         return $this->request('DELETE', $url);
@@ -79,7 +79,7 @@ final class InternalWallets extends Endpoint implements InternalWalletsInterface
     public function setAmlCustomerRefId(string $walletId, string $customerRefId): ResponseInterface
     {
         $url = strtr('/v1/internal_wallets/{walletId}/set_customer_ref_id', [
-            '{walletId}' => $walletId,
+            '{walletId}' => urlencode($walletId),
         ]);
 
         return $this->request('POST', $url, [

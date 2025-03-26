@@ -18,7 +18,7 @@ final class NetworkConnections extends Endpoint implements NetworkConnectionsInt
     public function retrieveNetworkConnection(string $connectionId): ResponseInterface
     {
         $url = strtr('/v1/network_connections/{connectionId}', [
-            '{connectionId}' => $connectionId,
+            '{connectionId}' => urlencode($connectionId),
         ]);
 
         return $this->request('GET', $url);

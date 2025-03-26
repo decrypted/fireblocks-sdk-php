@@ -29,7 +29,7 @@ final class SmartTransfers extends Endpoint implements SmartTransfersInterface
     public function retrieveTransferTicket(string $ticketId): ResponseInterface
     {
         $url = strtr('/v1/transfer_tickets/{ticketId}', [
-            '{ticketId}' => $ticketId
+            '{ticketId}' => urlencode($ticketId)
         ]);
 
         return $this->request('GET', $url);
@@ -38,8 +38,8 @@ final class SmartTransfers extends Endpoint implements SmartTransfersInterface
     public function retrieveTermOfTransactionTicket(string $ticketId, string $termId): ResponseInterface
     {
         $url = strtr('/v1/transfer_tickets/{ticketId}/{termId}', [
-            '{ticketId}' => $ticketId,
-            '{termId}'   => $termId,
+            '{ticketId}' => urlencode($ticketId),
+            '{termId}'   => urlencode($termId),
         ]);
 
         return $this->request('GET', $url);
@@ -48,7 +48,7 @@ final class SmartTransfers extends Endpoint implements SmartTransfersInterface
     public function cancelTransferRequest(string $ticketId): ResponseInterface
     {
         $url = strtr('/v1/transfer_tickets/{ticketId}/cancel', [
-            '{ticketId}' => $ticketId
+            '{ticketId}' => urlencode($ticketId)
         ]);
 
         return $this->request('POST', $url);
@@ -57,8 +57,8 @@ final class SmartTransfers extends Endpoint implements SmartTransfersInterface
     public function makeTransferFromTransferTermContext(string $ticketId, string $termId, TransferPeerPath $path): ResponseInterface
     {
         $url = strtr('/v1/transfer_tickets/{ticketId}/{termId}/transfer', [
-            '{ticketId}' => $ticketId,
-            '{termId}'   => $termId,
+            '{ticketId}' => urlencode($ticketId),
+            '{termId}'   => urlencode($termId),
         ]);
 
         return $this->request('POST', $url, [
