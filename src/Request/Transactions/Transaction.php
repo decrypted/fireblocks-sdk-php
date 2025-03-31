@@ -19,6 +19,14 @@ final class Transaction extends Request
         protected ?string                     $externalTxId = null,
         protected array                       $extraParameters = [],
         protected array                       $destinations = [],
+        protected ?string $feeLevel = null,
+        protected ?string $priorityFee = null,
+        protected ?bool   $failOnLowFee = null,
+        protected ?string $maxFee = null,
+        protected ?string $gasLimit = null,
+        protected ?string $gasPrice = null,
+        protected ?string $networkFee = null,
+        protected ?string $customerRefId = null,
     )
     {
 
