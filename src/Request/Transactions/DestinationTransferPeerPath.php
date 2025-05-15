@@ -8,14 +8,14 @@ use Jaddek\Fireblocks\Http\Request;
 
 final class DestinationTransferPeerPath extends Request
 {
-    private const TYPE_VAULT_ACCOUNT      = 'VAULT_ACCOUNT';
-    private const TYPE_EXCHANGE_ACCOUNT   = 'EXCHANGE_ACCOUNT';
-    private const TYPE_INTERNAL_WALLET    = 'INTERNAL_WALLET';
-    private const TYPE_EXTERNAL_WALLET    = 'EXTERNAL_WALLET';
-    private const TYPE_ONE_TIME_ADDRESS   = 'ONE_TIME_ADDRESS';
+    private const TYPE_VAULT_ACCOUNT = 'VAULT_ACCOUNT';
+    private const TYPE_EXCHANGE_ACCOUNT = 'EXCHANGE_ACCOUNT';
+    private const TYPE_INTERNAL_WALLET = 'INTERNAL_WALLET';
+    private const TYPE_EXTERNAL_WALLET = 'EXTERNAL_WALLET';
+    private const TYPE_ONE_TIME_ADDRESS = 'ONE_TIME_ADDRESS';
     private const TYPE_NETWORK_CONNECTION = 'NETWORK_CONNECTION';
-    private const TYPE_FIAT_ACCOUNT       = 'FIAT_ACCOUNT';
-    private const TYPE_COMPOUND           = 'COMPOUND';
+    private const TYPE_FIAT_ACCOUNT = 'FIAT_ACCOUNT';
+    private const TYPE_COMPOUND = 'COMPOUND';
 
     protected ?string $type = null;
 
@@ -93,5 +93,12 @@ final class DestinationTransferPeerPath extends Request
     public function getOneTimeAddress(): ?OneTimeAddress
     {
         return $this->oneTimeAddress;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = parent::jsonSerialize();
+
+        return array_filter($data, fn($value) => !empty($value));
     }
 }

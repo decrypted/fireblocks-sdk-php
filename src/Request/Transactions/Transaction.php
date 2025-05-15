@@ -36,6 +36,11 @@ final class Transaction extends Request
     {
         $data = parent::jsonSerialize();
 
+        if ($data['destination'] && $data['destination'] instanceof DestinationTransferPeerPath) {
+            //making sure we dont send null $oneTimeAddress
+            $data['destination'] = $data['destination']->jsonSerialize();
+        }
+
         return array_filter($data, fn($value) => !empty($value));
     }
 }
