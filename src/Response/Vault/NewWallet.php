@@ -12,7 +12,7 @@ final class NewWallet implements ItemInterface
     public function __construct(
         public string  $id,
         public string  $address,
-        public string  $legacyAddress,
+        public ?string $legacyAddress,
         public ?string $enterpriseAddress,
         public ?string $tag,
         public ?string $eosAccountName,
@@ -39,9 +39,9 @@ final class NewWallet implements ItemInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLegacyAddress(): string
+    public function getLegacyAddress(): ?string
     {
         return $this->legacyAddress;
     }
