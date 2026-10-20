@@ -12,4 +12,8 @@ interface GasStationInterface
     public function retrieveSettings(): ResponseInterface;
 
     public function editSettings(Configuration $configuration): ResponseInterface;
+
+    public function retrieveSettingsByAsset(string $assetId): ResponseInterface;
+
+    public function editSettingsByAsset(string $assetId, Configuration $configuration): ResponseInterface;
 }
