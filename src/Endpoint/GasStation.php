@@ -24,4 +24,24 @@ final class GasStation extends Endpoint implements GasStationInterface
             'json' => $configuration
         ]);
     }
+
+    public function retrieveSettingsByAsset(string $assetId): ResponseInterface
+    {
+        $url = strtr('/v1/gas_station/{assetId}', [
+            '{assetId}' => urlencode($assetId),
+        ]);
+
+        return $this->request('GET', $url);
+    }
+
+    public function editSettingsByAsset(string $assetId, Configuration $configuration): ResponseInterface
+    {
+        $url = strtr('/v1/gas_station/configuration/{assetId}', [
+            '{assetId}' => urlencode($assetId),
+        ]);
+
+        return $this->request('PUT', $url, [
+            'json' => $configuration
+        ]);
+    }
 }

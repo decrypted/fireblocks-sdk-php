@@ -28,4 +28,18 @@ final class GasStationProvider extends Provider
         return $response->toArray();
     }
 
+    public function getSettingsByAsset(string $assetId): array
+    {
+        $response = $this->endpoint->retrieveSettingsByAsset($assetId);
+
+        return $response->toArray();
+    }
+
+    public function updateSettingsByAsset(string $assetId, Configuration $configuration): array
+    {
+        $response = $this->endpoint->editSettingsByAsset($assetId, $configuration);
+
+        return $response->toArray();
+    }
+
 }

@@ -26,4 +26,14 @@ final class GasStationProviderHydrationDecorator
     {
         return Hydrator::instance($this->provider->updateSettings($configuration), Configuration::class);
     }
+
+    public function getSettingsByAsset(string $assetId): ItemInterface|GasStation
+    {
+        return Hydrator::instance($this->provider->getSettingsByAsset($assetId), GasStation::class);
+    }
+
+    public function updateSettingsByAsset(string $assetId, ConfigurationRequest $configuration): Configuration|ItemInterface
+    {
+        return Hydrator::instance($this->provider->updateSettingsByAsset($assetId, $configuration), Configuration::class);
+    }
 }
